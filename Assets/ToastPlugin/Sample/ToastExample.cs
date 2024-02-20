@@ -5,8 +5,8 @@ using NativeToast;
 
 public class ToastExample : MonoBehaviour
 {
-    private float delayShort = Toast.LENGTH_SHORT; //2 seconds
-    private float delayLong = Toast.LENGTH_LONG; //3.5 seconds
+    private float delayShort = 2f;
+    private float delayLong = 3.5f;
 
     void Start()
     {
@@ -26,7 +26,7 @@ public class ToastExample : MonoBehaviour
         Toast.Show(message: false, debugConsole: msg => Debug.Log(msg));
         yield return new WaitForSeconds(delayShort);
         Toast.Show("toast without debug console");
-        yield return new WaitForSeconds(delayLong);
+        yield return new WaitForSeconds(delayShort);
         Toast.Show("long toast", duration: Toast.LENGTH_LONG);
         yield return new WaitForSeconds(delayLong);
         Toast.Show("long toast with debug console", Toast.LENGTH_LONG, msg => Debug.Log(msg));
