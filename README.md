@@ -8,7 +8,13 @@ Platform Support:
 
 # Preview
 
-<img src="https://github.com/yashlan/Toast-Unity-Plugin/blob/main/ss/ss_android.gif" /> <img src="https://github.com/yashlan/Toast-Unity-Plugin/blob/main/ss/ss_ios.gif" />
+> Preview on Android Device
+<img src="https://github.com/yashlan/Toast-Unity-Plugin/blob/main/ss/ss_android.gif" /> 
+
+<br>
+
+> Preview on iOS Device
+<img src="https://github.com/yashlan/Toast-Unity-Plugin/blob/main/ss/ss_ios.gif" />
 
 # Usage
 
