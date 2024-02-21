@@ -1,7 +1,8 @@
 #if UNITY_IOS
 using System.Runtime.InteropServices;
-#endif
+#elif UNITY_ANDROID
 using UnityEngine;
+#endif
 using System;
 
 namespace NativeToast
@@ -23,10 +24,12 @@ namespace NativeToast
             }
         }
 #elif UNITY_IOS
-    public const float LENGTH_SHORT = 2f;
-    public const float LENGTH_LONG = 3.5f;
-    [DllImport("__Internal")]
-    private static extern void showToast(string message, float duration);
+        public const float LENGTH_SHORT = 2f;
+        public const float LENGTH_LONG = 3.5f;
+        [DllImport("__Internal")]
+        private static extern void showToast(string message, float duration);
+        [DllImport("__Internal")]
+        private static extern void cancelToast();
 #endif
 
         public static void Show(
@@ -34,17 +37,26 @@ namespace NativeToast
 #if UNITY_ANDROID
             int duration = Toast.LENGTH_SHORT,
 #elif UNITY_IOS
-        float duration = Toast.LENGTH_SHORT,
+            float duration = Toast.LENGTH_SHORT,
 #endif
             Action<object> debugConsole = null
             )
         {
 #if UNITY_ANDROID && !UNITY_EDITOR
-        toast.Call("showToast", message, duration);
+        toast.Call("showToast", message.ToString(), duration);
 #elif UNITY_IOS && !UNITY_EDITOR
         showToast(message.ToString(), duration);
 #else
-            debugConsole?.Invoke(message);
+        debugConsole?.Invoke(message);
+#endif
+        }
+
+        public static void Cancel()
+        {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        toast.Call("cancelToast");
+#elif UNITY_IOS && !UNITY_EDITOR
+        cancelToast();
 #endif
         }
     }
