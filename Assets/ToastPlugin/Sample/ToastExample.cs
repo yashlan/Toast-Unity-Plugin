@@ -1,15 +1,29 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using NativeToast;
+using UnityEngine.SceneManagement;
 
 public class ToastExample : MonoBehaviour
 {
+    [SerializeField] Button restartBtn;
+#if UNITY_ANDROID
     private float delayShort = 2f;
     private float delayLong = 3.5f;
+#elif UNITY_IOS
+    private float delayShort = 4f;
+    private float delayLong = 7f;
+#endif
 
     void Start()
     {
+        restartBtn.onClick.AddListener(() =>
+        {
+            StopAllCoroutines();
+            Toast.Cancel();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        });
+
         StartCoroutine(TestToast());
     }
 
@@ -21,7 +35,7 @@ public class ToastExample : MonoBehaviour
         yield return new WaitForSeconds(delayShort);
         Toast.Show(message: "bool " + true, debugConsole: msg => Debug.LogError(msg));
         yield return new WaitForSeconds(delayShort);
-        Toast.Show(message: "text only", debugConsole: msg => Debug.Log(msg));
+        Toast.Show(message: "asdasdas dasd asasdasdsad ad aadasd asd adada asda asdasdasdasdasdasd asda ad asdasdsadasd asdasdas asdas dasda sdas dasd as da da sdasdasda asd asd", debugConsole: msg => Debug.Log(msg));
         yield return new WaitForSeconds(delayShort);
         Toast.Show(message: false, debugConsole: msg => Debug.Log(msg));
         yield return new WaitForSeconds(delayShort);
