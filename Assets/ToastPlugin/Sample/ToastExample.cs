@@ -29,7 +29,11 @@ public class ToastExample : MonoBehaviour
 
     IEnumerator TestToast()
     {
-        Toast.Show(message: "double " + 123.4, debugConsole: msg => Debug.Log(msg));
+#if UNITY_ANDROID
+        Toast.Show(message: "Unity toast message on Android device", debugConsole: msg => Debug.Log(msg));
+#elif UNITY_IOS
+        Toast.Show(message: "Unity toast message on iOS device", debugConsole: msg => Debug.Log(msg));
+#endif
         yield return new WaitForSeconds(delayShort);
         Toast.Show(message: "int " + 10, debugConsole: msg => Debug.LogWarning(msg));
         yield return new WaitForSeconds(delayShort);
